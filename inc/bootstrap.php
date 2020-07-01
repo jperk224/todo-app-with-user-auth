@@ -1,19 +1,14 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/database_connection.php';
 require_once __DIR__ . '/functions_tasks.php';
+require_once __DIR__ . '/functions_users.php';
 
 // define short references to namespaces
 use \Symfony\Component\HttpFoundation\Session\Session as Session;
 use \Symfony\Component\HttpFoundation\Request as Request;
 use \Symfony\Component\HttpFoundation\Response as Response;
 
-try {
-    $db = new PDO("sqlite:".__DIR__."/todo.db");
-    $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    echo $e->getMessage();
-    exit;
-}
 /*
  * Set access to components from \Symfony\Component\HttpFoundation\
  * 1. Session
