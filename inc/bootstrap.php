@@ -2,6 +2,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/functions_tasks.php';
 
+// define short references to namespaces
+use \Symfony\Component\HttpFoundation\Session\Session as Session;
+use \Symfony\Component\HttpFoundation\Request as Request;
+use \Symfony\Component\HttpFoundation\Response as Response;
+
 try {
     $db = new PDO("sqlite:".__DIR__."/todo.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -17,17 +22,17 @@ try {
  */
 
 // 1. session \Symfony\Component\HttpFoundation\Session
-$session = new \Symfony\Component\HttpFoundation\Session\Session();
+$session = new Session();
 $session->start();
 
 // 2. request \Symfony\Component\HttpFoundation\Request
 function request() {
-    return \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+    return Request::createFromGlobals();
 }
 
 // 3. redirect \Symfony\Component\HttpFoundation\Response
 function redirect($path) {
-    $response = \Symfony\Component\HttpFoundation\Response::create(null, \Symfony\Component\HttpFoundation\Response::HTTP_FOUND, ['Location' => $path]);
+    $response = Response::create(null, Response::HTTP_FOUND, ['Location' => $path]);
     $response->send();
     exit;
 }
