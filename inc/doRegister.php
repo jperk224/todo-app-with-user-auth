@@ -20,3 +20,18 @@ if (!empty($user)) {
     $session->getFlashBag()->add('error', 'Username already exists');
     redirect('/register.php');
 }
+
+// if you've gotten this far, the username is unique,
+// the passwords match, and we're ready to add the user
+
+// hash the password.  PASSWORD_DEFAULT will support
+// future enchancements to encryption algorithms
+// currently bcrypt in PHP v7.4.1
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+// add the user to the DB
+addUser($username, $hashedPassword);
+
+// TODO: create a JWT for the session
+
+redirect('/index.php');
