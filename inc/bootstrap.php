@@ -21,16 +21,27 @@ try {
  * 3. Redirect
  */
 
-// 1. session \Symfony\Component\HttpFoundation\Session
+/**
+ * session \Symfony\Component\HttpFoundation\Session 
+ * Symfony session API is used over built-in PHP session tools
+ */
 $session = new Session();
-$session->start();
+$session->start();  
 
-// 2. request \Symfony\Component\HttpFoundation\Request
+/** 
+ * request \Symfony\Component\HttpFoundation\Request
+ * return a request object built from the PHP super globals
+ * Object property values hold information about the client request
+ */ 
 function request() {
     return Request::createFromGlobals();
 }
 
-// 3. redirect \Symfony\Component\HttpFoundation\Response
+/**
+ * redirect \Symfony\Component\HttpFoundation\Response
+ * HTTP_FOUND = 302
+ * @param $path the URL to redirect to
+ */
 function redirect($path) {
     $response = Response::create(null, Response::HTTP_FOUND, ['Location' => $path]);
     $response->send();
