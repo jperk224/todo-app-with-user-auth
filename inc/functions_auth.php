@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Cookie as Cookie;
  * @param jwt JSON web token
  * @param expirationTime token life int
  */
-function jwtCookie($jwt, $expirationTime)
+function setAuthorizationCookie($data, $expirationTime)
 {
-    $cookie = Cookie::create('auth', $jwt, $expirationTime, '/', $_ENV["COOKIE_DOMAIN"], false, true);
+    $cookie = Cookie::create('auth', $data, $expirationTime, '/', $_ENV["COOKIE_DOMAIN"], false, true);
     return $cookie;
 }
 
@@ -28,7 +28,7 @@ function saveUserData($user)
     $session->getFlashBag()->add('success', 'Successfully logged in. Welcome ' . $user['username'] . '!');
     $expirationTime = time() + 3600;    // token should expire in one hour
     // create the JWT
-    $key = $_ENV["SECRET_KEY"];
+    $key = base64_encode($_ENV["SECRET_KEY"]);
     $payload = [
         'iss' => request()->getBaseUrl(),
         'sub' => (int) $user['id'],
@@ -37,8 +37,8 @@ function saveUserData($user)
         'nbf' => time(),
     ];
     $algo = 'HS256';
-    $jwt = JWT::encode($key, $payload, $algo);
-    $cookie = jwtCookie($jwt, $expirationTime);
+    $jwt = JWT::encode($payload, $key, $algo);
+    $cookie = setAuthorizationCookie($jwt, $expirationTime);
     redirect('/', ['cookies' => [$cookie]]);
 }
 
@@ -49,11 +49,12 @@ function decodeAuthCookie()
 {
   try {
     JWT::$leeway = 60;   // allow for 60 seconds for some clock skew when checking the time properties
+    $key = base64_encode($_ENV["SECRET_KEY"]);
     $authCookie = request()->cookies->get('auth');
     $algoArray = ['HS256'];
     $decodedCookie = JWT::decode(
       $authCookie,
-      $_ENV["SECRET_KEY"],
+      $key,
       $algoArray
     );
   } catch (Exception $e) {
