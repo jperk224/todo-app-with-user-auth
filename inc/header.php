@@ -53,14 +53,14 @@
       </h1>
 
         <ul class="nav navbar-left">
-        <li class="nav-item tasks<?php if ($page == "tasks") { echo " on"; } ?>"><a class="nav-link" href="task_list.php">View Tasks</a></li>
-        <li class="nav-item task<?php if ($page == "task") { echo " on"; } ?>"><a class="nav-link" href="task.php">Add Tasks</a></li>
+        <li class="nav-item tasks<?php if ($page == "tasks") { echo " on"; } echo '"'; hideUnauthorizedLinks()?>><a class="nav-link" href="task_list.php">View Tasks</a></li>
+        <li class="nav-item task<?php if ($page == "task") { echo " on"; } echo '"'; hideUnauthorizedLinks()?>><a class="nav-link" href="task.php">Add Tasks</a></li>
       </ul>
         <ul class="nav">
-            <li class="nav-item task<?php if ($page == "account") { echo " on"; } ?>"><a class="nav-link" href="/account.php">My Account</a></li>
-            <li class="nav-item tasks"><a class="nav-link" href="/inc/doLogout.php">Logout</a></li>
-            <li class="nav-item tasks<?php if ($page == "login") { echo " on"; } ?>"><a class="nav-link" href="/login.php">Login</a></li>
-            <li class="nav-item tasks<?php if ($page == "register") { echo " on"; } ?>"><a class="nav-link" href="/register.php">Register</a></li>
+            <li class="nav-item task<?php if ($page == "account") { echo " on"; } echo '"'; hideUnauthorizedLinks()?>><a class="nav-link" href="/account.php">My Account</a></li>
+            <li class="nav-item tasks" <?php hideUnauthorizedLinks() ?>><a class="nav-link" href="/inc/doLogout.php">Logout</a></li>
+            <li class="nav-item tasks<?php if ($page == "login") { echo " on"; } echo '"'; hideAuthorizedLinks()?>><a class="nav-link" href="/login.php">Login</a></li>
+            <li class="nav-item tasks<?php if ($page == "register") { echo " on"; } echo '"'; hideAuthorizedLinks()?>><a class="nav-link" href="/register.php">Register</a></li>
         </ul>
     </div>
   </header>

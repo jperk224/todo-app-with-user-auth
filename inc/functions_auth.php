@@ -84,3 +84,23 @@ function requireAuth()
         redirect('/login.php');
     } 
 }
+
+/**
+ * Hide pages for unauthenticated users
+ */
+function hideUnauthorizedLinks()
+{
+    if (!isAuthenticated()) {
+        echo 'style="display:none"';
+    }
+}
+
+/**
+ * Hide pages for authenticated users
+ */
+function hideAuthorizedLinks()
+{
+    if (isAuthenticated()) {
+        echo 'style="display:none"';
+    }
+}

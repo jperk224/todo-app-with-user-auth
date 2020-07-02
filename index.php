@@ -12,7 +12,7 @@ include 'inc/header.php';
       <p class="actions-copy">What would you like to do today?</p>
       <div class="actions-wrapper">
         <ul class="actions">
-            <li class="actions-item">
+            <li class="actions-item" <?php hideUnauthorizedLinks() ?>>
                 <a class="actions-link" href="task_list.php">
               <span class="actions-icon">
                 <svg viewbox="0 0 64 64"><use xlink:href="#report_icon"></use></svg>
@@ -20,7 +20,7 @@ include 'inc/header.php';
                     View Tasks
                 </a>
             </li>
-          <li class="actions-item">
+          <li class="actions-item" <?php hideUnauthorizedLinks() ?>>
             <a class="actions-link" href="task.php">
               <span class="actions-icon">
                 <svg viewbox="0 0 64 64"><use xlink:href="#task_icon"></use></svg>
@@ -28,7 +28,7 @@ include 'inc/header.php';
               Add Task
             </a>
           </li>
-          <li class="actions-item">
+          <li class="actions-item" <?php hideAuthorizedLinks() ?>>
             <a class="actions-link" href="register.php">
               <span class="actions-icon">
                 <svg viewbox="0 0 64 64"><use xlink:href="#user_icon"></use></svg>
