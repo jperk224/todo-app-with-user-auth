@@ -98,5 +98,7 @@ function changePassword($password, $id)
         return getUserById($id);
     } catch (Exception $e) {
         echo $e->getMessage();
+        return false;
     }
+    return true;
 }

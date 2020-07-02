@@ -1,6 +1,5 @@
 <?php
 require_once 'inc/bootstrap.php';
-
 $pageTitle = "Login | Time Tracker";
 $page = 'login';
 

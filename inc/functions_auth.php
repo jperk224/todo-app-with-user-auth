@@ -58,8 +58,29 @@ function decodeAuthCookie()
       $algoArray
     );
   } catch (Exception $e) {
-      echo $e->getMessage();    //TODO: currently hitting this on signature verificaiton failed.
       return false;
   }
   return $decodedCookie;
+}
+
+/**
+ * Check whether the user is authenticated
+ * Returns the auth cookie as a PHP object or false by way of decodeAuthCookie()
+ */
+function isAuthenticated() 
+{
+    return decodeAuthCookie();
+}
+
+/**
+ * Require the user to be authorized to view a page
+ * If no auth cookie is returned, redirect the user home.
+ */
+function requireAuth()
+{
+    if (!isAuthenticated()) {
+        global $session;
+        $session->getFlashBag()->add('error', 'Not Authorized');
+        redirect('/login.php');
+    } 
 }
