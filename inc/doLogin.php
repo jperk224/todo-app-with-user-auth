@@ -8,10 +8,12 @@ $password = request()->get('password');
 
 $user = getUserByUserName($username);
 
+
 // redirect with error if bad username or password
 if (empty($user) || !password_verify($password, $user['password'])) {
     $session->getFlashBag()->add('error', 'Invalid username or password.');
     redirect('/login.php');
 }
 
-
+// if successful, create a cookie and redirect home
+saveUserData($user);

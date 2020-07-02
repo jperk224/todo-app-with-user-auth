@@ -30,8 +30,8 @@ if (!empty($user)) {
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // add the user to the DB
-addUser($username, $hashedPassword);
+// addUser returns the added user so we can pass it to saveUserData()
+$user = addUser($username, $hashedPassword);
 
-// TODO: create a JWT for the session
-
-redirect('/index.php');
+// if successful, create a cookie and redirect home
+saveUserData($user);
