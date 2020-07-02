@@ -3,6 +3,9 @@
 
 // users table interface functions
 
+/**
+ * Get all users from the DB.
+ */
 function getAllUsers()
 {
     global $db;
@@ -16,6 +19,10 @@ function getAllUsers()
     }
 }
 
+/**
+ * Get user from the DB by username
+ * @param username string
+ */
 function getUserByUserName($username)
 {
     global $db;
@@ -30,6 +37,10 @@ function getUserByUserName($username)
     }
 }
 
+/**
+ * Get user from the DB by userId
+ * @param id int
+ */
 function getUserById($id)
 {
     global $db;
@@ -44,6 +55,11 @@ function getUserById($id)
     }    
 }
 
+/** 
+ * Add a user to the DB.
+ * @param username string
+ * @param password hashed string
+ */
 function addUser($username, $password)
 {
     global $db;
@@ -62,6 +78,11 @@ function addUser($username, $password)
     }
 }
 
+/**
+ * Change a user's password
+ * @param password hashed string
+ * @param id int
+ */
 function changePassword($password, $id)
 {
     global $db;
