@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Cookie as Cookie;
  */
 function jwtCookie($jwt, $expirationTime)
 {
-    $cookie = Cookie::create('auth', $jwt, $expirationTime, '/', getenv("COOKIE_DOMAIN"), false, true);
+    $cookie = Cookie::create('auth', $jwt, $expirationTime, '/', $_ENV["COOKIE_DOMAIN"], false, true);
     return $cookie;
 }
 
@@ -36,8 +36,29 @@ function saveUserData($user)
         'iat' => time(),
         'nbf' => time(),
     ];
-    $algoArray = 'HS256';
-    $jwt = JWT::encode($key, $payload, $algoArray);
+    $algo = 'HS256';
+    $jwt = JWT::encode($key, $payload, $algo);
     $cookie = jwtCookie($jwt, $expirationTime);
     redirect('/', ['cookies' => [$cookie]]);
+}
+
+/**
+ * Decode a JWT cookie
+ */
+function decodeAuthCookie()
+{
+  try {
+    JWT::$leeway = 60;   // allow for 60 seconds for some clock skew when checking the time properties
+    $authCookie = request()->cookies->get('auth');
+    $algoArray = ['HS256'];
+    $decodedCookie = JWT::decode(
+      $authCookie,
+      $_ENV["SECRET_KEY"],
+      $algoArray
+    );
+  } catch (Exception $e) {
+      echo $e->getMessage();    //TODO: currently hitting this on signature verificaiton failed.
+      return false;
+  }
+  return $decodedCookie;
 }

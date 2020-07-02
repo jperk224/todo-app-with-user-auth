@@ -5,15 +5,16 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-require_once __DIR__ . '/database_connection.php';
-require_once __DIR__ . '/functions_tasks.php';
-require_once __DIR__ . '/functions_users.php';
-require_once __DIR__ . '/functions_auth.php';
-
 // define short references to namespaces
 use \Symfony\Component\HttpFoundation\Session\Session as Session;
 use \Symfony\Component\HttpFoundation\Request as Request;
 use \Symfony\Component\HttpFoundation\Response as Response;
+
+// Supporting scripts
+require_once __DIR__ . '/database_connection.php';
+require_once __DIR__ . '/functions_tasks.php';
+require_once __DIR__ . '/functions_users.php';
+require_once __DIR__ . '/functions_auth.php';
 
 /*
  * Set access to components from \Symfony\Component\HttpFoundation\
