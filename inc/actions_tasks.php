@@ -16,7 +16,7 @@ case "add":
     if (empty($task)) {
         $session->getFlashBag()->add('error', 'Please enter a task');
     } else {
-        if (createTask(['task'=>$task, 'status'=>$status])) {
+        if (createTask(['task' => $task, 'status' => $status, 'userId' => decodeAuthCookie()->sub])) {
             $session->getFlashBag()->add('success', 'New Task Added');
         }
     }

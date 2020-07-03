@@ -6,7 +6,10 @@ $pageTitle = "Task | Time Tracker";
 $page = "task";
 
 if (request()->get('id')) {
-    list($task_id, $task, $status) = getTask(request()->get('id'));
+    $taskArray = getTask(request()->get('id'));
+    $task_id = $taskArray['id'];
+    $task = $taskArray['task'];
+    $status = $taskArray['status'];
 }
 
 include 'inc/header.php';
